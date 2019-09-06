@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,7 +12,34 @@ namespace AspNetCoreWebApplication.Controllers
     {
         public IActionResult Index()
         {
-            ViewData["Message"] = "You just created a ASP.Net Core web application!";
+            string connString;
+            string response = "";
+
+            connString =
+                @"Data Source=database-1.cur7afppexfe.us-east-2.rds.amazonaws.com;" +
+                 "Initial Catalog=Recipes;" +
+                 "User ID=admin;" +
+                 "Password=Whatthe770!";
+            response = "Connection Made";
+
+            using (SqlConnection conn =
+                   new SqlConnection(connString))
+            {
+                SqlCommand command =
+                    new SqlCommand("select * from recipes", conn);
+                conn.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    response += Convert.ToString(reader["IngredientName"]);
+                    response += Convert.ToString(reader["IngredientQuantity"]);
+                    response += Convert.ToString(reader["UnitType"]);
+                }
+            }
+
+            ViewData["Message"] = response;
             return View();
         }
 
