@@ -24,6 +24,7 @@ namespace AspNetCoreWebApplication.Controllers
                     new SqlCommand("select * from recipes", conn);
                 conn.Open();
 
+
                 SqlDataReader reader = command.ExecuteReader();
 
                 while (reader.Read())
@@ -39,7 +40,8 @@ namespace AspNetCoreWebApplication.Controllers
 
                 }
             }
-            return View(recipes);
+            ViewData["Message"] = "You just created a ASP.Net Core web application!";
+            return View();
         }
 
         public IActionResult Error()
