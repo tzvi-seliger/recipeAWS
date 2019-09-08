@@ -20,7 +20,7 @@ namespace AspNetCoreWebApplication.Controllers
             using (SqlConnection conn =
                    new SqlConnection(connString))
             {
-                /*SqlCommand command =
+                SqlCommand command =
                     new SqlCommand("select * from recipes", conn);
                 conn.Open();
 
@@ -37,7 +37,7 @@ namespace AspNetCoreWebApplication.Controllers
                     }
                     );
 
-                }*/
+                }
             }
             return View(recipes);
         }
