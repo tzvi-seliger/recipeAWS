@@ -2,8 +2,9 @@
   margin: 0;
 }
 
-html, body {
+html, body, #wrapper {
   height: 100%;
+  width: 100%:
 }
 
 html {
@@ -188,4 +189,8 @@ footer .footer-contents {
   .graphics {
     display: none;
   }
+}
+
+.ingitem{
+    display: inline-block;
 }

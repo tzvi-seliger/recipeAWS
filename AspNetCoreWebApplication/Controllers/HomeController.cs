@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCoreWebApplication.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AspNetCoreWebApplication.Controllers
@@ -21,7 +22,7 @@ namespace AspNetCoreWebApplication.Controllers
                  "User ID=admin;" +
                  "Password=Whatthe770!";
             response = "Connection Made";
-
+            List<Recipe> recipes = new List<Recipe>();
             using (SqlConnection conn =
                    new SqlConnection(connString))
             {
@@ -33,14 +34,20 @@ namespace AspNetCoreWebApplication.Controllers
 
                 while (reader.Read())
                 {
-                    response += Convert.ToString(reader["IngredientName"]);
-                    response += Convert.ToString(reader["IngredientQuantity"]);
-                    response += Convert.ToString(reader["UnitType"]);
+                    recipes.Add(new Recipe
+                    {
+                        IngredientName = Convert.ToString(reader["IngredientName"]),
+                        RecipeId = Convert.ToInt32(reader["RecipeId"]),
+                        IngredientQuantity = Convert.ToString(reader["IngredientQuantity"]),
+                        UnitType = Convert.ToString(reader["UnitType"])
+                    }
+                    );
+
                 }
             }
 
-            ViewData["Message"] = response;
-            return View();
+            ViewData["Message"] = recipes;
+            return View(recipes);
         }
 
         public IActionResult Error()

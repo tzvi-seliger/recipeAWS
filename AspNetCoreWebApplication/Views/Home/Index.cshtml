@@ -1,8 +1,22 @@
-﻿@{
+﻿
+@model List<AspNetCoreWebApplication.Models.Recipe>;
+
+@{
     ViewData["Title"] = "Example app";
 }
+
+
 <a class="twitter-link" href="http://twitter.com/home/?status=I just hosted a website on AWS!"><img src="img/tweet.svg" /></a>
-<div class="text">
-    <h1>Forget It, Remember it</h1>
-    <h2>@ViewData["Message"]</h2>
-</div>
+<ul>
+
+    @{for (int i = 0; i < Model.Count; i++)
+        {
+            <li>
+                <div class="ingitem">@Model[i].RecipeId</div>
+                <div class="ingitem">@Model[i].IngredientName</div>
+                <div class="ingitem">@Model[i].IngredientQuantity</div>
+                <div class="ingitem">@Model[i].UnitType</div>
+            </li>
+        }
+    }
+</ul>
