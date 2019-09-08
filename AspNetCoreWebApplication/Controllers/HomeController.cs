@@ -14,14 +14,11 @@ namespace AspNetCoreWebApplication.Controllers
         public IActionResult Index()
         {
             string connString;
-            string response = "";
-
             connString =
-                @"Data Source=database-1.cur7afppexfe.us-east-2.rds.amazonaws.com;" +
+                @"Data Source=database-1.cur7afppexfe.us-east-2.rds.amazonaws.com,1433;" +
                  "Initial Catalog=Recipes;" +
                  "User ID=admin;" +
                  "Password=Whatthe770!";
-            response = "Connection Made";
             List<Recipe> recipes = new List<Recipe>();
             using (SqlConnection conn =
                    new SqlConnection(connString))
@@ -45,8 +42,6 @@ namespace AspNetCoreWebApplication.Controllers
 
                 }
             }
-
-            ViewData["Message"] = recipes;
             return View(recipes);
         }
 
