@@ -20,8 +20,8 @@ namespace AspNetCoreWebApplication.Controllers
             using (SqlConnection conn =
                    new SqlConnection(connString))
             {
-           /*     SqlCommand command =
-                    new SqlCommand("select * from recipes", conn);*/
+                SqlCommand command =
+                    new SqlCommand("select * from recipes", conn);
                 conn.Open();
 
 
