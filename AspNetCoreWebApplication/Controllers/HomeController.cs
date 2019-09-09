@@ -31,8 +31,8 @@ namespace AspNetCoreWebApplication.Controllers
                 {
                     recipes.Add(new Recipe
                     {
-/*                        IngredientName = Convert.ToString(reader["IngredientName"]),
-*/                        RecipeId = Convert.ToInt32(reader["RecipeId"]),
+                        IngredientName = Convert.ToString(reader["IngredientName"]),
+                        RecipeId = Convert.ToInt32(reader["RecipeId"]),
                         IngredientQuantity = Convert.ToString(reader["IngredientQuantity"]),
                         UnitType = Convert.ToString(reader["UnitType"])
                     }
