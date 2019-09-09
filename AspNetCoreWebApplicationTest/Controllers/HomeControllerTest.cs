@@ -1,4 +1,4 @@
-using AspNetCoreWebApplication.Controllers;
+/*using AspNetCoreWebApplication.Controllers;
 using Xunit;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,4 +24,4 @@ namespace AspNetCoreWebApplicationTest.Controllers
             Assert.Equal("We've encountered an error :(", result.ViewData["Message"]);
         }
     }
-}
+}*/
