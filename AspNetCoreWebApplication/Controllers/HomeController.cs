@@ -15,7 +15,7 @@ namespace AspNetCoreWebApplication.Controllers
         {
             string connString;
             connString =
-                @"Data Source=database-1.cur7afppexfe.us-east-2.rds.amazonaws.com; Initial Catalog=rdsadmin;User ID=admin;Password=Whatthe770!";
+                @"Data Source=database-1.cur7afppexfe.us-east-2.rds.amazonaws.com; Initial Catalog=Recipes;User ID=admin;Password=Whatthe770!";
             List<Recipe> recipes = new List<Recipe>();
             using (SqlConnection conn =
                    new SqlConnection(connString))
