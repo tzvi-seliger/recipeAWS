@@ -20,11 +20,11 @@ namespace AspNetCoreWebApplication.Controllers
             using (SqlConnection conn =
                    new SqlConnection(connString))
             {
-              /*  SqlCommand command =
+                SqlCommand command =
                     new SqlCommand("select * from recipes", conn);
                 conn.Open();
 
-
+/*
                 SqlDataReader reader = command.ExecuteReader();
 
                 while (reader.Read())
