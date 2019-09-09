@@ -24,10 +24,10 @@ namespace AspNetCoreWebApplication.Controllers
                     new SqlCommand("select * from recipes", conn);
                 conn.Open();
 
-/*
+
                 SqlDataReader reader = command.ExecuteReader();
 
-                while (reader.Read())
+               /* while (reader.Read())
                 {
                     recipes.Add(new Recipe
                     {
