@@ -25,8 +25,8 @@ namespace AspNetCoreWebApplication.Controllers
                 conn.Open();
 
 
-                SqlDataReader reader = command.ExecuteReader();
-
+/*                SqlDataReader reader = command.ExecuteReader();
+*/
                 /* while (reader.Read())
                  {
                      recipes.Add(new Recipe
