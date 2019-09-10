@@ -25,20 +25,20 @@ namespace AspNetCoreWebApplication.Controllers
                 conn.Open();
 
 
-/*                SqlDataReader reader = command.ExecuteReader();
-*/
-                /* while (reader.Read())
-                 {
-                     recipes.Add(new Recipe
-                     {
-                         IngredientName = Convert.ToString(reader["IngredientName"]),
-                         RecipeId = Convert.ToInt32(reader["RecipeId"]),
-                         IngredientQuantity = Convert.ToString(reader["IngredientQuantity"]),
-                         UnitType = Convert.ToString(reader["UnitType"])
-                     }
-                     );
+                SqlDataReader reader = command.ExecuteReader();
 
-                 }*/
+                while (reader.Read())
+                {
+                    recipes.Add(new Recipe
+                    {
+                        IngredientName = Convert.ToString(reader["IngredientName"]),
+                        RecipeId = Convert.ToInt32(reader["RecipeId"]),
+                        IngredientQuantity = Convert.ToString(reader["IngredientQuantity"]),
+                        UnitType = Convert.ToString(reader["UnitType"])
+                    }
+                    );
+
+                }
             }
             ViewData["Message"] = "You just created a ASP.Net Core web application!";
             return View();
