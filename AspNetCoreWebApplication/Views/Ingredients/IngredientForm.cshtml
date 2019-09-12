@@ -1,0 +1,15 @@
+﻿@model AspNetCoreWebApplication.Models.Ingredient;
+@{
+    ViewData["Title"] = "IngredientForm";
+}
+
+<h2>IngredientForm</h2>
+
+<form asp-action="IngredientFormSubmit" asp-controller="Ingredients">
+    <label asp-for="IngredientName">Ingredient Name</label>
+    <input asp-for="IngredientName" placeholder="Your name goes here" />
+    <input type="submit" value="Add New Ingredient" />
+</form>
+
+<a href="~/ingredients">See All Ingredients</a>
+<a href="~/recipes">See All Recipes</a>

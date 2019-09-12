@@ -8,9 +8,6 @@ namespace AspNetCoreWebApplication.Models
     public class Recipe
     {
         public int RecipeId { get; set; }
-        public string IngredientName { get; set; }
-        public string IngredientQuantity { get; set; }
-        public string UnitType { get; set; }
-
+        public string RecipeName { get; set; }
     }
 }
