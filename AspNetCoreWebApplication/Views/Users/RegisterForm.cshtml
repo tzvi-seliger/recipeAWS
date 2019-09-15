@@ -1,0 +1,29 @@
+﻿@model  AspNetCoreWebApplication.Models.User;
+@{
+    ViewData["Title"] = "RegisterForm";
+}
+
+<h2>RegisterForm</h2>
+
+<form asp-action="RegisterFormAction" method="post" asp-controller="Users">
+    <label asp-for="FirstName">First Name</label>
+    <input type="text" asp-for="FirstName" />
+
+    <label asp-for="LastName">Last Name</label>
+    <input type="text" asp-for="LastName" />
+
+    <label asp-for="EmailAddress">Email Address</label>
+    <input type="text" asp-for="EmailAddress" />
+
+    <label asp-for="Photo">Photo</label>
+    <input type="text" asp-for="Photo" />
+
+    <label asp-for="UserLogin">UserLogin</label>
+    <input type="text" asp-for="UserLogin" />
+
+    <label asp-for="Password">Password</label>
+    <input type="text" asp-for="Password" />
+
+    <input type="submit" value="Submit New User"/>
+</form>
+

@@ -9,7 +9,6 @@ use RecipeManager;
 create table Recipes(
  RecipeId int identity(1,1) not null,
  RecipeName varchar(100) not null,
-
  CONSTRAINT PK_RecipeId PRIMARY KEY (RecipeId)
 );
 

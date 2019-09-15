@@ -1,0 +1,26 @@
+﻿@model AspNetCoreWebApplication.Models.FullRecipe;
+
+@{
+    ViewData["Title"] = "Form";
+}
+
+<h2>Form</h2>
+<form id="recipeForm" asp-action="SubmitForm" asp-controller="Recipes">
+    <label asp-for="recipe.RecipeName">Recipe Name</label>
+    <input asp-for="recipe.RecipeName" placeholder="Recipe Name" />
+    <div id="ingredientsDiv">
+        <button id="addIngredient">Add New Ingredient</button>
+    </div>
+
+    <button id="addComponent">Add New Component</button>
+    <button id="addInstruction">Add New Instruction</button>
+    <input type="submit" value="Add New Recipe" />
+</form>
+<script>
+  /*  document.getElementById("addIngredient").addEventListener('click', function () {
+        let index = document.querySelector('.newIngredient').length - 1;
+        let aspfor = "'"+ "*//*" + "Model.recipeList[${index}].IngredientName'";
+        document.getElementById("ingredientsDiv").innerHTML +=
+            `<input type= 'text' class = 'newIngredient' asp-for=''>`;
+    })*/
+</script>

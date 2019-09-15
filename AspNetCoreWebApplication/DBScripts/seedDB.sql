@@ -28,3 +28,6 @@ Insert into RecipeComponents(RecipeId, IngredientId, Quantity, Unit)
 		   (1, 2, 2, 'Cups'),
 		   (1, 1, 1, 'Cups'),
 		   (1, 2, 2, 'Cups');
+
+SELECT * FROM RecipeComponents join Recipes on RecipeComponents.RecipeId = Recipes.RecipeId
+Where Recipes.RecipeId = 1
