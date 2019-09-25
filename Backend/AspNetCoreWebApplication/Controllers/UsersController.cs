@@ -12,7 +12,7 @@ namespace AspNetCoreWebApplication.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            return View(new UsersDAO().GetUsers());
         }
 
         public IActionResult LoginForm()
@@ -32,20 +32,8 @@ namespace AspNetCoreWebApplication.Controllers
         }
         public IActionResult RegisterFormAction(User user)
         {
-            
-                UsersList.users.Add(
-                new User {
-/*                    UserId = new UsersDAO().users.Count + 1,
-*/                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    EmailAddress = user.EmailAddress,
-                    Photo = user.Photo,
-                    UserLogin = user.UserLogin,
-                    Password = user.Password
-                }
 
-           );
-
+            new UsersDAO().InsertUser(user); 
             return RedirectToAction("RegisterForm");
         }
     }

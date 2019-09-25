@@ -139,18 +139,21 @@ namespace AspNetCoreWebApplication.Controllers
             // 2) where recipe id is the above submit ingredients using select list, adding quantities with form
             // 3) add instructions based on recipe id with a form 
             // submit recipe with submit form button
-            string insertIngredientQuery = $"insert into ingredients(IngredientName) values ('{fullrecipe.recipeList[0].IngredientName}')";
-            string insertRecipeNameQuery = $"insert into recipes(RecipeName) values('{fullrecipe.recipe.RecipeName}')";
+            foreach(RecipeToIngredient recipeToIngredient in fullrecipe.recipeList)
+            {
+                string insertIngredientQuery = $"insert into ingredients(IngredientName) values ('{recipeToIngredient.IngredientName}')";
+            }
+           
+            /*string insertRecipeNameQuery = $"insert into recipes(RecipeName) values('{fullrecipe.recipe.RecipeName}')";
             string insertComponentQuery = $"insert into RecipeComponents(RecipeId, IngredientId, Quantity, Unit) VALUES" +
                 $"(SELECT RecipeId from Recipes where Recipes.RecipeName = '{fullrecipe.recipe.RecipeName}')," +
                 $"(SELECT IngredientId FROM Ingredients where Ingredients.IngredientName = '{fullrecipe.recipeList[0].IngredientName}'),3,'cups');";
             string insertIinstructionQuery = $"insert into instructions(RecipeId, InstructionContent) values" +
                 $"(select recipes.recipeId from Recipes where Recipes.RecipeName = '{fullrecipe.recipe.RecipeName}')," +
-                $"'{fullrecipe.instructionList[0].InstructionContent}')";
+                $"'{fullrecipe.instructionList[0].InstructionContent}')";*/
        
-            
-                return RedirectToAction("Index");}
-
+                return RedirectToAction("Index");
+        }
         /*  public IActionResult SubmitImage()
           {
 
