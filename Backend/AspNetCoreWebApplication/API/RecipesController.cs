@@ -4,17 +4,25 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using AspNetCoreWebApplication.Models;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.Web.Http;
+using System.Text;
+using System.Web.Mvc;
+using AspNetCoreWebApplication.DAO;
 
 namespace AspNetCoreWebApplication.API
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("CorsPolicy")]
+    [Produces("application/json")]
     public class RecipesController : ControllerBase
     {
         [HttpGet]
-        public string Get()
+        public List<Ingredient> Get()
         {
             string connString = @"Data Source=DESKTOP-B54NHFS; Initial Catalog=RecipeManager; Integrated Security=SSPI;";
            
@@ -22,8 +30,7 @@ namespace AspNetCoreWebApplication.API
             {
                     conn.Open();
             }
-
-            return "Hello";
+            return new IngredientsDAO().getIngredients();
         }
 
 

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <form>
+        <input type='text' id="recipename" />
+        <button id="addIngredient" type="button">Add Ingredient</button>
+        <div id="ingredients"></div>
+        <button id="addInstruction">Add Instruction</button>
+        <div id="instructions"></div>
+        <input type="submit" id="submitrecipe" />
+    </form>
+    <script>
+
+        let newrecipe = {
+            "recipe": {},
+            "recipeList": [],
+            "instructionList": []
+        }
+
+        document.getElementById("addInstruction").addEventListener("click", function (e) {
+            e.preventDefault();
+            document.getElementById("instructions").innerHTML +=
+                `<div class = "instructionset">` +
+                `<input type ="text" class="instruction"/>` +
+                `<input type ="text" class="instructionId"/>` +
+                `</div>`
+            return false;
+        });
+
+        document.getElementById("addIngredient").addEventListener("click", function (e) {
+            e.preventDefault();
+            document.getElementById("ingredients").innerHTML +=
+                `<div class="ingredientset">` +
+                `<input type ="text" class="recipeId"/>` +
+                `<input type ="text" class="ingredientId"/>` +
+                `<input type ="text" class="ingredientName"/>` +
+                `<input type ="text" class="quantity"/>` +
+                `<input type ="text" class="unit"/>` +
+                `</div>`
+            return false
+        });
+
+
+        document.getElementById("submitrecipe").addEventListener("click", function (e) {
+            e.preventDefault();
+            newrecipe.recipe.recipeName = document.getElementById("recipename").value;
+            document.querySelectorAll(".ingredientset").forEach(function (single) {
+                newrecipe.recipeList.push(
+                    {
+                        "RecipeId": single.querySelector(".recipeId").value,
+                        "IngredientId": single.querySelector(".ingredientId").value,
+                        "IngredientName": single.querySelector(".ingredientName").value,
+                        "Quantity": single.querySelector(".quantity").value,
+                        "Unit": single.querySelector(".unit").value
+                    }
+                )
+            })
+
+            document.querySelectorAll(".instructionset").forEach(function (single) {
+                newrecipe.instructionList.push(
+                    {
+                        "RecipeId": single.querySelector(".instruction").value,
+                        "instructionContent": single.querySelector(".instructionId").value,
+                    }
+                )
+            })
+            console.log(newrecipe.recipeList)
+            console.log(newrecipe)
+            fetch("http://localhost:65489/api/Recipes", {
+                method: 'POST',
+                mode: 'cors',
+                cache: 'no-cache',
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                redirect: 'follow',
+                referrer: 'no-referrer',
+                body: JSON.stringify(newrecipe)
+            });
+        });
+
+        fetch("http://localhost:65489/api/Recipes", {
+            method: "GET",
+            mode: "cors"
+        })
+
+            .then(function (res) {
+                console.log(res.json())
+            })
+            .then(function (data) {
+                console.log(data)
+            })
+
+            .then(function (err) {
+                console.log(err)
+            })
+
+
+    </script>
+</body>
+
+</html>
