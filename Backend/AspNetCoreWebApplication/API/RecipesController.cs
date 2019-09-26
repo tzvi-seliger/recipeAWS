@@ -39,37 +39,27 @@ namespace AspNetCoreWebApplication.API
         public bool Post(FullRecipe fullRecipe)
         {
             string connString = @"Data Source=DESKTOP-B54NHFS; Initial Catalog=RecipeManager; Integrated Security=SSPI;";
-            /*            {ingredient.IngredientName.Substring(0, 1).ToUpper()}{ingredient.IngredientName.Substring(1).ToLower()}
-            */
             using (SqlConnection conn = new SqlConnection(connString))
             {
-
                 conn.Open();
                 {
                     SqlCommand command = new SqlCommand(queries.insertRecipeQuery(fullRecipe),conn);
                     command.ExecuteNonQuery();
                 }
-
                 foreach (RecipeToIngredient recipeToIngredient in fullRecipe.recipeList)
                 {
                     //TODO only insert if ingredient name is not in db
-                   
-
                     SqlCommand command = new SqlCommand(queries.insertIngredientQuery(recipeToIngredient), conn);
                     command.ExecuteNonQuery();
-
                     command = new SqlCommand(queries.insertRecipeComponent(fullRecipe, recipeToIngredient), conn);
                     command.ExecuteNonQuery();
                 }
-
                 foreach (Instruction instruction in fullRecipe.instructionList)
-                {
-                    
+                { 
                     SqlCommand command = new SqlCommand(queries.insertIstructionQuery(instruction, fullRecipe), conn);
                     command.ExecuteNonQuery();
                 }
             }
-
             return true;
         }
     }

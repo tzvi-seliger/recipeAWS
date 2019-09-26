@@ -7,11 +7,17 @@
 
 <body>
     <form>
+        <label for ="recipename">Recipe Name</label>
         <input type='text' id="recipename" />
-        <button id="addIngredient" type="button">Add Ingredient</button>
+        
+        <h1>Ingredients</h1>
         <div id="ingredients"></div>
-        <button id="addInstruction" type="button">Add Instruction</button>
+        <button id="addIngredient" type="button">Add Ingredient</button>
+
+        <h1>Instructions</h1>
         <div id="instructions"></div>
+        <button id="addInstruction" type="button">Add Instruction</button>
+        
         <input type="submit" id="submitrecipe" />
     </form>
     <script src="js/addfields.js"></script>
@@ -29,7 +35,7 @@
         });
 
         document.getElementById("addIngredient").addEventListener("click", function (e) {
-            document.getElementById("ingredients").appendChild(addIngredientField())
+            document.getElementById("ingredients").appendChild(addIngredientField(document.querySelectorAll(".ingredientset").length))
             return false
         });
 
