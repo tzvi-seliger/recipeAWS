@@ -10,10 +10,11 @@
         <input type='text' id="recipename" />
         <button id="addIngredient" type="button">Add Ingredient</button>
         <div id="ingredients"></div>
-        <button id="addInstruction">Add Instruction</button>
+        <button id="addInstruction" type="button">Add Instruction</button>
         <div id="instructions"></div>
         <input type="submit" id="submitrecipe" />
     </form>
+    <script src="js/addfields.js"></script>
     <script>
 
         let newrecipe = {
@@ -23,39 +24,26 @@
         }
 
         document.getElementById("addInstruction").addEventListener("click", function (e) {
-            e.preventDefault();
-            document.getElementById("instructions").innerHTML +=
-                `<div class = "instructionset">` +
-                `<input type ="text" class="instruction"/>` +
-                `<input type ="text" class="instructionId"/>` +
-                `</div>`
+            document.getElementById("instructions").appendChild(addInstructionField())
             return false;
         });
 
         document.getElementById("addIngredient").addEventListener("click", function (e) {
-            e.preventDefault();
-            document.getElementById("ingredients").innerHTML +=
-                `<div class="ingredientset">` +
-                `<input type ="text" class="recipeId"/>` +
-                `<input type ="text" class="ingredientId"/>` +
-                `<input type ="text" class="ingredientName"/>` +
-                `<input type ="text" class="quantity"/>` +
-                `<input type ="text" class="unit"/>` +
-                `</div>`
+            document.getElementById("ingredients").appendChild(addIngredientField())
             return false
         });
 
 
         document.getElementById("submitrecipe").addEventListener("click", function (e) {
-            e.preventDefault();
+            e.preventDefault()
             newrecipe.recipe.recipeName = document.getElementById("recipename").value;
             document.querySelectorAll(".ingredientset").forEach(function (single) {
                 newrecipe.recipeList.push(
                     {
-                        "RecipeId": single.querySelector(".recipeId").value,
-                        "IngredientId": single.querySelector(".ingredientId").value,
+                        // "RecipeId": parseInt(single.querySelector(".recipeId").value),
+                        // "IngredientId": parseInt(single.querySelector(".ingredientId").value),
                         "IngredientName": single.querySelector(".ingredientName").value,
-                        "Quantity": single.querySelector(".quantity").value,
+                        "Quantity": parseInt(single.querySelector(".quantity").value),
                         "Unit": single.querySelector(".unit").value
                     }
                 )
@@ -64,11 +52,12 @@
             document.querySelectorAll(".instructionset").forEach(function (single) {
                 newrecipe.instructionList.push(
                     {
-                        "RecipeId": single.querySelector(".instruction").value,
-                        "instructionContent": single.querySelector(".instructionId").value,
+                        // "RecipeId": parseInt(single.querySelector(".recipeId").value),
+                        "instructionContent": single.querySelector(".instruction").value
                     }
                 )
             })
+
             console.log(newrecipe.recipeList)
             console.log(newrecipe)
             fetch("http://localhost:65489/api/Recipes", {
@@ -84,6 +73,7 @@
                 body: JSON.stringify(newrecipe)
             });
         });
+
 
         fetch("http://localhost:65489/api/Recipes", {
             method: "GET",
@@ -101,7 +91,13 @@
                 console.log(err)
             })
 
-
+                // `<div class="ingredientset">` +
+                // `<input type ="text" class="recipeId"/>` +
+                // `<input type ="text" class="ingredientId"/>` +
+                // `<input type ="text" class="ingredientName"/>` +
+                // `<input type ="text" class="quantity"/>` +
+                // `<input type ="text" class="unit"/>` +
+                // `</div>`
     </script>
 </body>
 

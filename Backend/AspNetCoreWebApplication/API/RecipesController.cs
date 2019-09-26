@@ -12,6 +12,7 @@ using System.Web.Http;
 using System.Text;
 using System.Web.Mvc;
 using AspNetCoreWebApplication.DAO;
+using AspNetCoreWebApplication.Services;
 
 namespace AspNetCoreWebApplication.API
 {
@@ -25,10 +26,10 @@ namespace AspNetCoreWebApplication.API
         public List<Ingredient> Get()
         {
             string connString = @"Data Source=DESKTOP-B54NHFS; Initial Catalog=RecipeManager; Integrated Security=SSPI;";
-           
+
             using (SqlConnection conn = new SqlConnection(connString))
             {
-                    conn.Open();
+                conn.Open();
             }
             return new IngredientsDAO().getIngredients();
         }
@@ -42,30 +43,29 @@ namespace AspNetCoreWebApplication.API
             */
             using (SqlConnection conn = new SqlConnection(connString))
             {
-                
+
                 conn.Open();
                 {
-                    string insertRecipeQuery = $"insert into Recipes(RecipeName) values ('{fullRecipe.recipe.RecipeName}')";
-                    SqlCommand command = new SqlCommand(insertRecipeQuery, conn);
+                    SqlCommand command = new SqlCommand(queries.insertRecipeQuery(fullRecipe),conn);
                     command.ExecuteNonQuery();
                 }
 
                 foreach (RecipeToIngredient recipeToIngredient in fullRecipe.recipeList)
                 {
-                    string insertIngredientQuery = $"insert into ingredients(IngredientName) values ('{recipeToIngredient.IngredientName}')";
-                    string insertRecipeComponent = $"insert into recipeComponents(RecipeId, IngredientId, Quantity, Unit) values ({recipeToIngredient.RecipeId},{recipeToIngredient.IngredientId}  ,{recipeToIngredient.Quantity}, '{recipeToIngredient.Unit}')";
+                    //TODO only insert if ingredient name is not in db
+                   
 
-                    SqlCommand command = new SqlCommand(insertIngredientQuery, conn);
+                    SqlCommand command = new SqlCommand(queries.insertIngredientQuery(recipeToIngredient), conn);
                     command.ExecuteNonQuery();
 
-                    command = new SqlCommand(insertRecipeComponent, conn);
+                    command = new SqlCommand(queries.insertRecipeComponent(fullRecipe, recipeToIngredient), conn);
                     command.ExecuteNonQuery();
                 }
 
                 foreach (Instruction instruction in fullRecipe.instructionList)
                 {
-                    string insertIstructionQuery = $"insert into instructions(recipeid, instructionContent) values ({instruction.RecipeId},'{instruction.InstructionContent}')";
-                    SqlCommand command = new SqlCommand(insertIstructionQuery, conn);
+                    
+                    SqlCommand command = new SqlCommand(queries.insertIstructionQuery(instruction, fullRecipe), conn);
                     command.ExecuteNonQuery();
                 }
             }
