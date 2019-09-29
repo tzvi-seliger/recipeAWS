@@ -11,6 +11,11 @@ namespace AspNetCoreWebApplication.Services
         {
             return @"Data Source=database-1.cur7afppexfe.us-east-2.rds.amazonaws.com,1433; Initial Catalog=RecipeManager;User ID=admin;Password=Whatthe770!";
         }
+        public string getDevString()
+        {
+            return @"Data Source=DESKTOP-B54NHFS; Initial Catalog=RecipeManager; Integrated Security=SSPI;";
+        }
+
 
         public string getQuery(string query)
         {

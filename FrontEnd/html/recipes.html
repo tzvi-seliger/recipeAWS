@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <script>
+        let data;
+        fetch("http://localhost:65489/api/Recipes", {
+            method: "GET",
+            mode: "cors"
+        })
+
+            .then(function (res) {
+                data = res.json()
+                console.log(data)
+            })
+            .then(function (data) {
+                console.log(data)
+            })
+
+            .then(function (err) {
+                console.log(err)
+            })
+
+        let recipes = [
+            {
+                name: "blueberry muffin",
+                photo: "bb.jpg",
+                baseYield: 12,
+                ingredients: [
+                    {
+                        name: "AP flour",
+                        amount: 1.5,
+                        unit: "cups"
+                    },
+                    {
+                        name: "Sugar",
+                        amount: 0.75,
+                        unit: "cups"
+                    },
+                    {
+                        name: "Salt",
+                        amount: 0.5,
+                        unit: "teaspoons"
+                    },
+                    {
+                        name: "Baking Powder",
+                        amount: 2,
+                        unit: "teaspoons"
+                    },
+                    {
+                        name: "Vegetable Oil",
+                        amount: 0.75,
+                        unit: "cups"
+                    },
+                    {
+                        name: "Egg",
+                        amount: 1,
+                        unit: "qty"
+                    },
+                    {
+                        name: "Milk",
+                        amount: 0.33,
+                        unit: "cups"
+                    },
+                    {
+                        name: "Blueberries",
+                        amount: 1,
+                        unit: "cups"
+                    }
+                ],
+                instructions: [
+                    "Preheat oven to 400 degrees F (200 degrees C). Grease muffin cups or line with muffin liners.",
+                    "Combine 1 1/2 cups flour, 3/4 cup sugar, salt and baking powder.",
+                    "Place vegetable oil into a 1 cup measuring cup; add the egg and enough milk to fill the cup. Mix this with flour mixture.",
+                    "Fold in blueberries.",
+                    "Fill muffin cups right to the top",
+                    "sprinkle with crumb topping mixture.",
+                    "To Make Crumb Topping: Mix together 1/2 cup sugar, 1/3 cup flour, 1/4 cup butter, and 1 1/2 teaspoons cinnamon. Mix with fork, and sprinkle over muffins before baking.",
+                    "Bake for 20 to 25 minutes in the preheated oven, or until done."
+                ]
+            },
+            {
+                name: "Carrot muffin",
+                photo: "carrotmuffins.jpg",
+                baseYield: 12,
+                ingredients: [
+                    {
+                        name: "AP flour",
+                        amount: 1.5,
+                        unit: "cups"
+                    },
+                    {
+                        name: "Sugar",
+                        amount: 0.75,
+                        unit: "cups"
+                    },
+                    {
+                        name: "Salt",
+                        amount: 0.5,
+                        unit: "teaspoons"
+                    },
+                    {
+                        name: "Baking Powder",
+                        amount: 2,
+                        unit: "teaspoons"
+                    },
+                    {
+                        name: "Vegetable Oil",
+                        amount: 0.75,
+                        unit: "cups"
+                    },
+                    {
+                        name: "Egg",
+                        amount: 1,
+                        unit: "qty"
+                    },
+                    {
+                        name: "Milk",
+                        amount: 0.33,
+                        unit: "cups"
+                    },
+                    {
+                        name: "Blueberries",
+                        amount: 1,
+                        unit: "cups"
+                    }
+                ],
+                instructions: [
+                    "Preheat oven to 400 degrees F (200 degrees C). Grease muffin cups or line with muffin liners.",
+                    "Combine 1 1/2 cups flour, 3/4 cup sugar, salt and baking powder.",
+                    "Place vegetable oil into a 1 cup measuring cup; add the egg and enough milk to fill the cup. Mix this with flour mixture.",
+                    "Fold in blueberries.",
+                    "Fill muffin cups right to the top",
+                    "sprinkle with crumb topping mixture.",
+                    "To Make Crumb Topping: Mix together 1/2 cup sugar, 1/3 cup flour, 1/4 cup butter, and 1 1/2 teaspoons cinnamon. Mix with fork, and sprinkle over muffins before baking.",
+                    "Bake for 20 to 25 minutes in the preheated oven, or until done."
+                ]
+            }
+        ];
+
+        function returnListNav() {
+            let el = document.createElement("ul");
+            el.setAttribute("class", "recipeNav");
+            document.getElementById("body").appendChild(el);
+        }
+
+        function addToNav(item) {
+            let li = document.createElement("li");
+            li.setAttribute("class", "recipeNavItem");
+            li.innerHTML = item;
+
+            document.querySelector(".recipeNav").appendChild(li);
+        }
+
+        function insertMasterRecipeContainer() {
+            let el = document.createElement("div");
+            el.setAttribute("class", "masterRecipeContainer");
+            document.getElementById("body").appendChild(el);
+        }
+
+        function insertRecipeContainer() {
+            let el = document.createElement("div");
+            el.setAttribute("class", "recipeContainer");
+            document.querySelector(".masterRecipeContainer").appendChild(el);
+        }
+
+        function insertHeader(index) {
+            let el = document.createElement("div");
+            el.setAttribute("class", "recipeHeader");
+            document.querySelectorAll(".recipeContainer")[index].appendChild(el);
+        }
+
+        function insertRecipeList(index) {
+            let ul = document.createElement("ul");
+            ul.setAttribute("class", "recipeList");
+            document.getElementsByClassName("recipeContainer")[index].appendChild(ul);
+        }
+
+        function insertRecipeImage(imglink, index) {
+            let img = document.createElement("img");
+            img.setAttribute("src", imglink);
+            document.getElementsByClassName("recipeHeader")[index].appendChild(img);
+        }
+
+        function insertRecipeName(index, title) {
+            let h1 = document.createElement("h1");
+            h1.setAttribute("class", "title");
+            h1.innerHTML = title;
+            document.getElementsByClassName("recipeHeader")[index].appendChild(h1);
+        }
+
+        function insertInstructionContainer(index) {
+            let el = document.createElement("div");
+            el.setAttribute("class", "instructionContainer");
+            document.querySelectorAll(".recipeContainer")[index].appendChild(el);
+        }
+
+        function insertInstructionList(index) {
+            let ul = document.createElement("ul");
+            ul.setAttribute("class", "instructionList");
+            document.querySelectorAll(".instructionContainer")[index].appendChild(ul);
+        }
+
+        function insertInstructionItems(arr, index) {
+            arr.forEach(item => {
+                let li = document.createElement("li");
+                li.setAttribute("class", "instructionItem");
+                li.innerHTML = item
+                document.querySelectorAll(".instructionList")[index].appendChild(li);
+            });
+        }
+
+        function insertIngredients(arr, index) {
+            arr.forEach(item => {
+                let li = document.createElement("li");
+                li.setAttribute("class", "ingredientItem");
+
+                let name = document.createElement("div");
+                name.setAttribute("class", "nameDiv");
+                name.innerHTML = item.name;
+
+                let amount = document.createElement("div");
+                amount.setAttribute("class", "amountDiv");
+                amount.innerHTML = item.amount;
+
+                let unit = document.createElement("div");
+                unit.setAttribute("class", "unitDiv");
+                unit.innerHTML = item.unit;
+
+                li.appendChild(name);
+                li.appendChild(amount);
+                li.appendChild(unit);
+
+                document.getElementsByClassName("recipeList")[index].appendChild(li);
+            });
+        }
+
+        returnListNav();
+
+        insertMasterRecipeContainer();
+        recipes.forEach((recipe, index) => {
+            addToNav(recipe.name);
+            console.log(index);
+            insertRecipeContainer();
+            insertHeader(index);
+            insertRecipeImage(recipe.photo, index);
+            insertRecipeName(index, recipe.name);
+            insertRecipeList(index);
+            insertIngredients(recipe.ingredients, index);
+            insertInstructionContainer(index)
+            insertInstructionList(index)
+            insertInstructionItems(recipe.instructions, index)
+        });
+
+        document.querySelectorAll(".recipeNavItem").forEach((item, index) => {
+            item.addEventListener("click", () => {
+                document.querySelectorAll(".recipeContainer").forEach(recipe => {
+                    recipe.style.display = "none";
+                });
+                document.querySelectorAll(".recipeNavItem").forEach(recipe => {
+                    recipe.classList.add("recipeNavInactive");
+                    recipe.classList.remove("recipeNavActive");
+                });
+                document
+                    .querySelectorAll(".recipeNavItem")
+                [index].classList.add("recipeNavActive");
+                document.querySelectorAll(".recipeContainer")[index].style.display =
+                    "inline-block";
+            });
+        });
+
+
+
+
+    </script>
+</body>
+
+</html>

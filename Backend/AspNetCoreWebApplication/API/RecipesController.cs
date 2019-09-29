@@ -13,6 +13,7 @@ using System.Text;
 using System.Web.Mvc;
 using AspNetCoreWebApplication.DAO;
 using AspNetCoreWebApplication.Services;
+using AspNetCoreWebApplication.API_DAO;
 
 namespace AspNetCoreWebApplication.API
 {
@@ -22,44 +23,36 @@ namespace AspNetCoreWebApplication.API
     [Produces("application/json")]
     public class RecipesController : ControllerBase
     {
-        [HttpGet]
-        public List<Ingredient> Get()
+        private readonly IDBConn _dBConn;
+        public RecipesController(IDBConn dbconn)
         {
-            string connString = @"Data Source=DESKTOP-B54NHFS; Initial Catalog=RecipeManager; Integrated Security=SSPI;";
-
-            using (SqlConnection conn = new SqlConnection(connString))
-            {
-                conn.Open();
-            }
-            return new IngredientsDAO().getIngredients();
+            _dBConn = dbconn;
         }
 
+        [HttpGet]
+        public List<FullRecipe> Get()
+        {
+            return new RecipeAPI_DAO(_dBConn).GetAllRecipes();
+        }
+
+        [HttpGet]
+        [Route("{id:int}")]
+        public FullRecipe Get(int id)
+        {
+            return new RecipeAPI_DAO(_dBConn).GetRecipe(id);
+        }
 
         [HttpPost]
         public bool Post(FullRecipe fullRecipe)
         {
-            string connString = @"Data Source=DESKTOP-B54NHFS; Initial Catalog=RecipeManager; Integrated Security=SSPI;";
-            using (SqlConnection conn = new SqlConnection(connString))
-            {
-                conn.Open();
-                {
-                    SqlCommand command = new SqlCommand(queries.insertRecipeQuery(fullRecipe),conn);
-                    command.ExecuteNonQuery();
-                }
-                foreach (RecipeToIngredient recipeToIngredient in fullRecipe.recipeList)
-                {
-                    //TODO only insert if ingredient name is not in db
-                    SqlCommand command = new SqlCommand(queries.insertIngredientQuery(recipeToIngredient), conn);
-                    command.ExecuteNonQuery();
-                    command = new SqlCommand(queries.insertRecipeComponent(fullRecipe, recipeToIngredient), conn);
-                    command.ExecuteNonQuery();
-                }
-                foreach (Instruction instruction in fullRecipe.instructionList)
-                { 
-                    SqlCommand command = new SqlCommand(queries.insertIstructionQuery(instruction, fullRecipe), conn);
-                    command.ExecuteNonQuery();
-                }
-            }
+            new RecipeAPI_DAO(_dBConn).PostRecipe(fullRecipe);
+            return true;
+        }
+
+        [HttpPut]
+        public bool Put(FullRecipe fullRecipe)
+        {
+            new RecipeAPI_DAO(_dBConn).UpdateRecipe(fullRecipe);
             return true;
         }
     }

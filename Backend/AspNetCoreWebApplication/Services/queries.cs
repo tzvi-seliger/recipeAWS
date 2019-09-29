@@ -43,5 +43,35 @@ namespace AspNetCoreWebApplication.Services
             $"((select recipes.recipeId from recipes where recipes.recipeName = '{fullRecipe.recipe.RecipeName}')," +
             $"'{instruction.InstructionContent}')";
 
+        //insertRecipeQuery
+        //insertIngredientQuery
+        //insertRecipeComponent
+        //insertInstructionQuery
+
+
+        internal static string updateRecipeQuery(FullRecipe fullRecipe)
+        {
+            return $"update Recipes set RecipeName = {fullRecipe.recipe.RecipeName} where Recipes.RecipeId = {fullRecipe.recipe.RecipeId};";
+        }
+
+        /*        internal static string updateIngredientQuery(RecipeToIngredient recipeToIngredient)
+                {
+                    return $"update ingredients set IngredientName values ('{recipeToIngredient.IngredientName}')";
+                }*/
+
+        internal static string updateRecipeComponent(FullRecipe fullRecipe, RecipeToIngredient recipeToIngredient)
+        {
+            return $"update recipeComponents (" +
+                       $" set RecipeId = (select recipeid from recipes where recipes.recipename='{fullRecipe.recipe.RecipeName}'), " +
+                       $" set IngredientId = (select ingredientId from Ingredients where ingredients.ingredientName='{recipeToIngredient.IngredientName}'), " +
+                       $" set Quantity = {recipeToIngredient.Quantity}" +
+                       $" set Unit = '{recipeToIngredient.Unit}') ) " +
+                       $" where recipes.recipeId = {fullRecipe.recipe.RecipeId};";
+        }
+
+        internal static string updateIstructionQuery(Instruction instruction, FullRecipe fullRecipe) =>
+                $"update instructions " +
+                $"set instructionContent = '{instruction.InstructionContent}' " +
+                $" where instructions.instructionId = {instruction.InstructionId};";
     }
 }
